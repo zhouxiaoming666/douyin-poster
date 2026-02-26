@@ -42,9 +42,12 @@ def load_cookies(cookie_file: str) -> list:
     return []
 
 
-def login(config: dict):
+def login(config: dict, script_dir: str = '.'):
     """执行扫码登录"""
     cookie_file = config['account'].get('cookie_file', 'cookies.json')
+    # 如果 cookie_file 不是绝对路径，则相对于脚本所在目录
+    if not os.path.isabs(cookie_file):
+        cookie_file = os.path.join(script_dir, '..', cookie_file)
     headless = config['browser'].get('headless', False)
     
     # 检查已有 Cookie
@@ -53,6 +56,9 @@ def login(config: dict):
         if input().strip().lower() != 'y':
             print("✅ 使用已有 Cookie")
             return
+    
+    # 强制不 headless，方便截图
+    headless = False
     
     print("🌐 启动浏览器...")
     
@@ -161,7 +167,7 @@ def main():
     print()
     
     config = load_config()
-    login(config)
+    login(config, script_dir=str(script_dir))
 
 
 if __name__ == '__main__':

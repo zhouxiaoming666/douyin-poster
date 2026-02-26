@@ -66,10 +66,13 @@ def type_text_slowly(page, selector: str, text: str, min_delay: int, max_delay: 
 
 
 def post_douyin(config: dict, title: str, images: List[str], topics: Optional[List[str]] = None,
-                visible: str = 'public', mention: Optional[str] = None):
+                visible: str = 'public', mention: Optional[str] = None, script_dir: str = '.'):
     """发布抖音图文"""
     
     cookie_file = config['account'].get('cookie_file', 'cookies.json')
+    # 如果 cookie_file 不是绝对路径，则相对于脚本所在目录
+    if not os.path.isabs(cookie_file):
+        cookie_file = os.path.join(script_dir, cookie_file)
     headless = config['browser'].get('headless', True)
     min_delay = config['behavior'].get('min_delay_ms', 1000)
     max_delay = config['behavior'].get('max_delay_ms', 5000)
@@ -198,7 +201,8 @@ def post_douyin(config: dict, title: str, images: List[str], topics: Optional[Li
                         visible_btn.click()
                         random_delay(min_delay, max_delay)
                         # 选择可见性选项
-                        visible_option = page.locator(f'[class*="{visible}"], li:has-text("{'公开' if visible == 'public' else '好友'})').first
+                        visible_text = '公开' if visible == 'public' else '好友'
+                        visible_option = page.locator(f'[class*="{visible}"], li:has-text("{visible_text})').first
                         if visible_option.is_visible(timeout=5000):
                             visible_option.click()
                 except:
@@ -268,7 +272,8 @@ def main():
         images=args.images,
         topics=args.topics,
         visible=args.visible,
-        mention=args.mention
+        mention=args.mention,
+        script_dir=str(script_dir)
     )
     
     sys.exit(0 if success else 1)
