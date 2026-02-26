@@ -1,0 +1,22 @@
+{
+  "account": {
+    "cookie_file": "cookies.json"
+  },
+  "browser": {
+    "headless": true,
+    "user_agent": "random",
+    "proxy": null
+  },
+  "behavior": {
+    "min_delay_ms": 1000,
+    "max_delay_ms": 5000,
+    "scroll_before_post": true,
+    "random_typing_speed": true
+  },
+  "post": {
+    "default_visible": "public",
+    "auto_hashtags": true,
+    "max_images": 9,
+    "min_images": 2
+  }
+}

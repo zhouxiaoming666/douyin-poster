@@ -1,0 +1,32 @@
+{
+  "name": "douyin-poster",
+  "displayName": "抖音图文发布助手",
+  "version": "1.0.0",
+  "description": "抖音图文发布助手。支持图文笔记发布、扫码登录、反检测。使用 Playwright 模拟真人操作。",
+  "author": "zhouxiaoming666",
+  "license": "MIT",
+  "homepage": "https://github.com/zhouxiaoming666/douyin-poster",
+  "repository": "https://github.com/zhouxiaoming666/douyin-poster",
+  "repositoryType": "github",
+  "tags": ["douyin", "tiktok", "social-media", "automation", "playwright", "chinese"],
+  "category": "social-media",
+  "requirements": {
+    "python": ">=3.8",
+    "system": ["chromium", "xvfb"]
+  },
+  "entryPoint": "scripts/douyin_post.py",
+  "installScript": "scripts/install.sh",
+  "configTemplate": "assets/config.example.json",
+  "examples": [
+    {
+      "name": "发布图文笔记",
+      "command": "python scripts/douyin_post.py --config assets/config.json --title \"我的抖音笔记\" --images photo1.jpg photo2.jpg"
+    },
+    {
+      "name": "带话题发布",
+      "command": "python scripts/douyin_post.py --config assets/config.json --title \"日常分享\" --images photo1.jpg --topics \"生活\" \"日常\""
+    }
+  ],
+  "screenshots": [],
+  "changelog": "初始版本发布 - 支持图文笔记发布、扫码登录、反检测措施"
+}
